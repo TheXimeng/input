@@ -28,8 +28,7 @@ fn do_smth() {
   //...
 
   // complex
-  use std::net::IpAddr;
-  let addr: IpAddr = input("ip: ");
+  let addr: std::net::IpAddr = input("ip: ");
   //...
 
   // custom
