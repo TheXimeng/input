@@ -17,9 +17,6 @@ in **src/...** :
 ```rust
 use input::*;
 
-struct Custom { /*...*/ }
-impl FromStr for Custom { /*...*/ }
-
 fn do_smth() {
   // primitives
   let line: String = input("> ");
@@ -31,7 +28,7 @@ fn do_smth() {
   let addr: std::net::IpAddr = input("ip: ");
   //...
 
-  // custom
+  // custom - when T : FromStr, T::Err : Display
   let c: Custom = input("Custom: ");
   //...
 }
