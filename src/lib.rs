@@ -33,11 +33,11 @@ where
     T: FromStr,
     T::Err: Display,
 {
-    let mut test = BufReader::new(reader);
+    let mut reader = BufReader::new(reader);
     loop {
         write!(writer, "{}", msg).expect("Failed to write msg!");
         writer.flush().expect("Failed flushing writer!");
-        match test.next_line().trim().parse() {
+        match reader.next_line().trim().parse() {
             Ok(t) => return t,
             Err(err) => writeln!(writer, "{}", err).expect("Failed to write Error!"),
         }
