@@ -12,27 +12,28 @@ in **Cargo.toml**\:
 input = { git = "https://github.com/TheXimeng/input.git" }
 ```
 
-in **src/...**
+### Examples
+in **src/...** :
 ```rust
 use input::*;
 
-struct Custom { ... }
-impl FromStr for Custom { ... }
+struct Custom { /*...*/ }
+impl FromStr for Custom { /*...*/ }
 
 fn do_smth() {
   // primitives
   let line: String = input("> ");
   let x: u32 = input("u32: ");
   let y: f64 = input("f64: ");
-  ...
+  //...
 
   // complex
   use std::net::IpAddr;
   let addr: IpAddr = input("ip: ");
-  ...
+  //...
 
   // custom
   let c: Custom = input("Custom: ");
-  ...
+  //...
 }
 ```
