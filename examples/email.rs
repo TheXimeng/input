@@ -1,6 +1,13 @@
-use std::str::FromStr;
+use std::{fmt::Display, str::FromStr};
 
 use input::input;
+
+fn main() {
+    loop {
+        let email: Email = input("> ");
+        println!("{:?}", email);
+    }
+}
 
 #[derive(Debug)]
 struct Email {
@@ -9,8 +16,12 @@ struct Email {
     _tld: String,
 }
 
-#[derive(Debug)]
 struct EmailParseError;
+impl Display for EmailParseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Couldn't Parse Email!")
+    }
+}
 
 impl FromStr for Email {
     type Err = EmailParseError;
@@ -35,13 +46,5 @@ impl FromStr for Email {
             _domain: domain,
             _tld: tld,
         })
-    }
-}
-
-#[test]
-fn main() {
-    loop {
-        let email: Email = input("> ");
-        println!("{:?}", email);
     }
 }
