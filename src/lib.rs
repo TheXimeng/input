@@ -1,7 +1,22 @@
+//! **input** is a simple utility library, which provides simple functions to read user input for cli's.
+//! ## Primitives
+//! ```
+//! let line: String = input("> ");
+//! let x: u32 = input("x = ");
+//! let y: f64 = input("y = ");
+//! ```
+//! ## Complex
+//! input can read and parse all `T` where `T` : [`FromStr`], `T::Err` : [`Display`]
+//! ```
+//! let addr: std::net::IpAddr = input("ip: ");
+//! let email: Email = input("email: "); // Custom struct - Email
+//! ```
+
 use std::fmt::Display;
 use std::io::{stdin, stdout, BufRead, BufReader, Read, Write};
 use std::str::FromStr;
 
+/// Wrapper for [`input_from`] with `writer`: [`stdout()`] and `reader`: [`stdin()`].
 pub fn input<T>(msg: &str) -> T
 where
     T: FromStr,
@@ -10,6 +25,9 @@ where
     input_from(msg, &mut stdout(), &mut stdin())
 }
 
+/// **Prompts** the user for **input** with `msg`.
+/// - `writer`: designates the destination for **user output**.
+/// - `reader`: the **src** from which input is read and parsed.
 pub fn input_from<T>(msg: &str, writer: &mut impl Write, reader: &mut impl Read) -> T
 where
     T: FromStr,
