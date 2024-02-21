@@ -1,6 +1,6 @@
 # Input
 Exposes **input** function:\
-**input(*msg*) -> *T*** repeatedly prompts the user with *msg* and reads input from **stdin()** until the input string can be converted into T.
+**input(*msg*) -> *T*** repeatedly prompts the user with *msg* and reads input from **stdin** until the input string can be converted into T.
 
 All types that implement **FromStr** are automatically supported.
 
