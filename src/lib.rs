@@ -2,7 +2,7 @@ use std::io::Write;
 use std::str::FromStr;
 use std::fmt::Debug;
 
-pub fn input<'a, T>(msg: &str) -> T
+pub fn input<T>(msg: &str) -> T
 where
     T: FromStr,
     T::Err : Debug,
