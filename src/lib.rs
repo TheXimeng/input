@@ -35,7 +35,7 @@ where
 {
     loop {
         prompt(writer, msg);
-        match reader.next_line().trim().parse() {
+        match next_line(reader).trim().parse() {
             Ok(t) => return t,
             Err(err) => writeln!(writer, "{}", err).expect("Failed to write Error!"),
         }
@@ -47,16 +47,10 @@ fn prompt(writer: &mut impl Write, msg: &str) {
     writer.flush().expect("Failed flushing writer!");
 }
 
-trait BufReadExt {
-    fn next_line(&mut self) -> String;
-}
-
-impl<T: BufRead> BufReadExt for T {
-    fn next_line(&mut self) -> String {
-        let mut buff = String::new();
-        self.read_line(&mut buff).expect("Failed to read input!");
-        buff
-    }
+fn next_line(reader: &mut impl BufRead) -> String {
+    let mut buff = String::new();
+    reader.read_line(&mut buff).expect("Failed to read input!");
+    buff
 }
 
 #[cfg(test)]
