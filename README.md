@@ -1,6 +1,5 @@
 # Input
-Exposes **input** function:\
-**input(*msg*) -> *T*** repeatedly prompts the user with *msg* and reads input from **stdin** until the input string can be converted into T.
+Utility library, which provides simple functions to read and parse user input for cli's.
 
 All types that implement **FromStr** are automatically supported.
 
