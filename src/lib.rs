@@ -13,7 +13,7 @@
 //! ```
 
 use std::fmt::Display;
-use std::io::{stdin, stdout, BufRead, BufReader, Read, Write};
+use std::io::{stdin, stdout, BufRead, Write};
 use std::str::FromStr;
 
 /// Wrapper for [`input_from`] with `writer`: [`stdout()`] and `reader`: [`stdin()`].
@@ -22,18 +22,17 @@ where
     T: FromStr,
     T::Err: Display,
 {
-    input_from(msg, &mut stdout(), &mut stdin())
+    input_from(msg, &mut stdout(), &mut stdin().lock())
 }
 
 /// **Prompts** the user for **input** with `msg`.
 /// - `writer`: designates the destination for **user output**.
 /// - `reader`: the **src** from which input is read and parsed.
-pub fn input_from<T>(msg: &str, writer: &mut impl Write, reader: &mut impl Read) -> T
+pub fn input_from<T>(msg: &str, writer: &mut impl Write, reader: &mut impl BufRead) -> T
 where
     T: FromStr,
     T::Err: Display,
 {
-    let mut reader = BufReader::new(reader);
     loop {
         write!(writer, "{}", msg).expect("Failed to write msg!");
         writer.flush().expect("Failed flushing writer!");
@@ -44,14 +43,11 @@ where
     }
 }
 
-trait BufReaderExt {
+trait BufReadExt {
     fn next_line(&mut self) -> String;
 }
 
-impl<T> BufReaderExt for BufReader<T>
-where
-    T: Read,
-{
+impl<T: BufRead> BufReadExt for T {
     fn next_line(&mut self) -> String {
         let mut buff = String::new();
         self.read_line(&mut buff).expect("Failed to read input!");
