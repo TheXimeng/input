@@ -34,13 +34,17 @@ where
     T::Err: Display,
 {
     loop {
-        write!(writer, "{}", msg).expect("Failed to write msg!");
-        writer.flush().expect("Failed flushing writer!");
+        prompt(writer, msg);
         match reader.next_line().trim().parse() {
             Ok(t) => return t,
             Err(err) => writeln!(writer, "{}", err).expect("Failed to write Error!"),
         }
     }
+}
+
+fn prompt(writer: &mut impl Write, msg: &str) {
+    write!(writer, "{}", msg).expect("Failed to write msg!");
+    writer.flush().expect("Failed flushing writer!");
 }
 
 trait BufReadExt {
