@@ -1,5 +1,5 @@
 # Input
-Utility library, which provides simple functions to read and parse user input for cli's.
+Utility library, which provides simple functionality to read and parse user input for command-line interfaces.
 
 All types that implement **FromStr** are automatically supported.
 
