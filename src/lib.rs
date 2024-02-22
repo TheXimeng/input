@@ -1,15 +1,16 @@
 //! **input** is a simple utility library, which provides simple functions to read user input for cli's.
 //! ## Primitives
-//! ```
+//! ```no_run
+//! # use input::input;
 //! let line: String = input("> ");
 //! let x: u32 = input("x = ");
 //! let y: f64 = input("y = ");
 //! ```
 //! ## Complex
 //! input can read and parse all `T` where `T` : [`FromStr`], `T::Err` : [`Display`]
-//! ```
+//! ```no_run
+//! # use input::input;
 //! let addr: std::net::IpAddr = input("ip: ");
-//! let email: Email = input("email: "); // Custom struct - Email
 //! ```
 
 use std::fmt::Display;
@@ -94,6 +95,13 @@ mod tests {
             TestInputResult::<f64> {
                 output: "> ".into(),
                 value: 3.14159
+            }
+        );
+        assert_eq!(
+            run_input_from("> ", "word\n3d5\n3.14"),
+            TestInputResult::<f64> {
+                output: "> invalid float literal\n> invalid float literal\n> ".into(),
+                value: 3.14
             }
         );
         assert_eq!(
